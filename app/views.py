@@ -16,6 +16,9 @@ def trial(request):
 
 def form(request):
 	return render(request, 'app/form.html', context = {})
+def reviews(request):
+	return render(request, 'app/review.html')
+
 
 def get_issue(request):
 	if request.method == 'POST':
