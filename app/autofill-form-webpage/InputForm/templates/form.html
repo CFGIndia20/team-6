@@ -530,4 +530,45 @@ document.getElementById("current").innerHTML = result.address.Match_addr;
 });
 });
 
+//function to show the address on the map
+function chooseAddr(lat1, lng1)
+{
+marker.setLatLng([lat1, lng1]);
+mymap.panTo(new L.LatLng(lat1, lng1));
+}
+
+//function to select the location from the text result
+function myFunction(arr)
+{
+if(arr.length > 0)
+{
+chooseAddr(arr[0].lat,arr[0].lon);
+document.getElementById('current').innerHTML = arr[0].display_name;
+}
+else
+{
+document.getElementById('current').innerHTML = "Sorry, no results...";
+}
+
+}
+
+//function to collect location address from the text input
+function addr_search()
+{
+var inp = "Andheri";
+var xmlhttp = new XMLHttpRequest();
+var url = "https://nominatim.openstreetmap.org/search?format=json&limit=3&q=" + inp;
+xmlhttp.onreadystatechange = function()
+{
+ if (this.readyState == 4 && this.status == 200)
+ {
+  var myArr = JSON.parse(this.responseText);
+  myFunction(myArr);
+ }
+};
+xmlhttp.open("GET", url, true);
+xmlhttp.send();
+}
+
+
 </script>

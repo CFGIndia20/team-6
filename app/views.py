@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from app.templates import extract_url
 
 def trial(request):
-	if request.method == 'GET':
-		print("GETT")
-		return HttpResponse("<p> success </p>")
+	extract_url.extract()
+	return render(request, 'app/form.html')
