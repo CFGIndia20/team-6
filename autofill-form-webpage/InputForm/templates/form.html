@@ -30,7 +30,7 @@
       padding: 3px;
       }
       form {
-      width: 100%;
+      width: 80%;
       padding: 20px;
       background: #fff;
       box-shadow: 0 2px 5px #ccc; 
@@ -47,6 +47,7 @@
       input {
       width: calc(100% - 10px);
       padding: 5px;
+      
       }
       select {
       width: 100%;
@@ -109,12 +110,12 @@
         <div class="item">
           <p>Your name</p>
           <div>
-            <input type="text" name="name" placeholder="Enter your name" width="48"/>
+            <input type="text" name="name" placeholder="Enter your name" required/>
           </div>
         </div>
         <div class="item">
           <p>Your email</p>
-          <input type="email" name="name"placeholder="Enter your email"/>
+          <input type="email" name="name"placeholder="Enter your email" required/>
         </div>
         <div class="item">
           <p>Date of complaint</p>
@@ -133,7 +134,7 @@
         </div>
         <div class="item">
           <p>Note all relevant dates, places, events, etc. pertaining to the complaint</p>
-          <textarea rows="5"></textarea>
+          <textarea rows="5" required></textarea>
         </div>
 
         <div class="item">
