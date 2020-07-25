@@ -7,7 +7,7 @@ The primary aim of our project was to make the complaint entry process for civil
 of the complaint, then they choose the location and write a brief description. They might upload an optional picture. Roughly 85% of all complaints have pictures. 
 
 ## Our Approach 
-So how do we make an aldready simple process easier, By pre-filling the form for users. We have used a few different approaches described below
+So how do we make an already simple process easier, By pre-filling the form for users. We have used a few different approaches described below
 
 ### Features
 
