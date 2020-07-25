@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Complaint Form</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -17,7 +18,14 @@
     integrity="sha512-HrFUyCEtIpxZloTgEKKMq4RFYhxjJkCiF5sDxuAokklOeZ68U2NPfh4MFtyIVWlsKtVbK5GD2/JzFyAfvT5ejA=="
     crossorigin=""></script>
     <style>
-      #mapid { height: 500px; width: 1000px}
+       .rest-of-form{
+        visibility: hidden;
+      } 
+      .rest-of-form.show{
+        visibility: visible;
+      } 
+      
+      #mapid { height: 40vh; width: 100%}
       html, body {
       min-height: 100%;
       }
@@ -33,6 +41,9 @@
       h1 {
       margin: 15px 0;
       font-weight: 400;
+      }
+      body{
+        position: relative;
       }
       .testbox {
       display: flex;
@@ -70,22 +81,19 @@
       width: calc(100% - 6px);
       }
       .item {
-      position: relative;
       margin: 10px 0;
+      }
+      .item .speak{
+        background-color: #095484;
+        color: white;
+        border-radius: 50%;
+        padding: 12px;
+        margin: 10px;
       }
       input[type="date"]::-webkit-inner-spin-button {
       display: none;
       }
-      .item i, input[type="date"]::-webkit-calendar-picker-indicator {
-      position: absolute;
-      font-size: 20px;
-      color: #a9a9a9;
-      }
-      .item i {
-      right: 2%;
-      top: 30px;
-      z-index: 1;
-      }
+      
       [type="date"]::-webkit-calendar-picker-indicator {
       right: 1%;
       z-index: 2;
@@ -114,32 +122,51 @@
       #info {
         align : center;
       }
+      #skip-button{
+        cursor: pointer;
+      }
+      #div_language{
+        display: none;
+      }
+      #div_language.show{
+        position: absolute;
+        right: 30px;
+        top: 30px;
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        padding: 20px 10px;
+        border-radius: 10px;
+        border: 1px solid black;
+      }
     </style>
   </head>
   <body>
+    <div id="div_language">
+      <select id="select_language" onchange="updateCountry()"></select>
+      &nbsp;&nbsp;
+      <select id="select_dialect"></select>
+    </div>
     <div class="testbox">
+      
       <form action="/" method="post">
         <div class="w3-panel w3-blue w3-round-xlarge">
-        <h1>Complaint Form</h1>
-        </div>
-        <div class="item">
-          <p>Your name</p>
-          <div>
-            <input type="text" name="name" placeholder="Enter your name" required/>
+          <h1>Complaint Form </h1>
+          <i id="settings-btn" class="fa fa-gear fa-2x "></i>
           </div>
-        </div>
         <div class="item">
-          <p>Your email</p>
-          <input type="email" name="name"placeholder="Enter your email" required/>
+          <p>Upload Image</p>
+          <div>
+            <input id="image-field" type="file" name="image" />
         </div>
-        <div class="item">
-          <p>Date of complaint</p>
-          <input type="date" name="name" required/>
-          <i class="fas fa-calendar-alt"></i>
-        </div>
+      </div>
+      <h3 id="skip-button">Skip</h3>
+      <div class="rest-of-form">
+        
+        
         <div class="item">
           <p>Choose department to send the complaint</p>
-          <select>
+          <select id="category-field">
             <option value="">*Please select*</option>
             <option value="A">Potholes</option>
             <option value="B">Street Light Electricity Issues</option>
@@ -148,32 +175,36 @@
           </select>
         </div>
         <div class="item">
-          <p>Note all relevant dates, places, events, etc. pertaining to the complaint</p>
-          <textarea rows="5" required></textarea>
+          <p>All the relevant information (dates, places, events, etc.) <i id="desc" class="speak fa fa-microphone fa-1x"></i></p>
+          <textarea  id="description-field" rows="5" required></textarea>
+        
+           
         </div>
 
-        <div class="item">
-            <p>Upload Image if any</p>
-            <div>
-              <input type="file" name="image" />
-          </div>
-        </div>
+       
 
         <div class="item">
+          <p>Enter Location <i id="loc" class="speak fa fa-microphone fa-1x"></i></p>
           <div id="mapid"></div>
           <div id="current">Nothing yet</div>
         </div>
-        <div class="btn-block">
-          <button type="submit" href="/">Send</button>
+        <div id="results">
+          <span id="final_span" class="final"></span>
+          <span id="interim_span" class="interim"></span>
+          <p>
         </div>
+        <div class="btn-block">
+          <button id="form-submit" type="submit" href="/">Send</button>
+        </div>
+      </div>
       </form>
     </div>
 
 
     <!-- Speech recognition part -->
-    <div id="info" align=center>
-      <p id="info_start">Click on the microphone icon and begin speaking.</p>
-      <p id="info_speak_now">Speak now.</p>
+    <div id="info">
+      <!-- <p id="info_start">Click on the microphone icon and begin speaking.</p>
+      <p id="info_speak_now">Speak now.</p> -->
       <p id="info_no_speech">No speech was detected. You may need to adjust your
         <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
           microphone settings</a>.</p>
@@ -190,34 +221,93 @@
          version 25 or later.</p>
     </div>
 
-    <div class="right">
-      <button id="start_button" onclick="startButton(event)">
-        <img id="start_img" src="mic.gif" alt="Start"></button>
-    </div>
     
-    <div id="results">
-      <span id="final_span" class="final"></span>
-      <span id="interim_span" class="interim"></span>
-      <p>
-    </div>
+     
+    
+    
+    
 
-    <div class="center">
-      <p>
-      <div id="div_language">
-        <select id="select_language" onchange="updateCountry()"></select>
-        &nbsp;&nbsp;
-        <select id="select_dialect"></select>
-      </div>
-    </div>
+     
+      
     <!-- Speech recognition end -->
 
 
   </body>
 </html>
 
-
-<!-- Speech recognition JS -->
 <script>
+  var map = false;
+  var mapString = "";
+  /* const nameField = document.getElementById("name-field");
+  const emailField = document.getElementById("email-field"); */
+  const categoryField = document.getElementById("category-field");
+  const descriptionField = document.getElementById("description-field");
+  window.onload=prepopulate;
+  const submitButton = document.getElementById("form-submit");
+  const complaintForm = document.getElementById("complaint-form");
+  const restForm = document.querySelector(".rest-of-form");
+  const imageField = document.getElementById("image-field");
+  const skipButton = document.getElementById("skip-button");
+  const settingsButton = document.getElementById("settings-btn");
+  const divLang = document.getElementById("div_language");
+  const descriptionSpeak = document.getElementById("desc");
+  const locationSpeak = document.getElementById("loc");
+ 
+//uncomment "async" 
+/* async */ function prepopulate(){
+ /*   
+  const result = await fetch("https://localhost:3000",{           //put the link here
+    method:"GET",
+  });
+ const parsedResult =  await res.json(); 
+ //this is the result fetched
+   */
+    /* nameField.value = "Twitter user's name";
+    emailField.value = "diljot@gmail.com"; */
+   /* categoryField.value = "B";
+     escriptionField.innerHTML = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ";
+*/
+  }; 
+  descriptionSpeak.addEventListener("mousedown",startButton);
+  descriptionSpeak.addEventListener("mouseup",stopButton);
+  locationSpeak.addEventListener("mousedown",(e)=>{
+    map=true;
+    //console.log(map);
+    startButton(e);});
+  locationSpeak.addEventListener("mouseup",(e)=>{
+    
+    stopButton(e);
+    setTimeout(()=>{
+      addr_search(mapString);
+      map=false;
+      },1000);
+    
+    
+    });
+  skipButton.addEventListener("click",showRestOfForm);
+  settingsButton.addEventListener("click",()=>{
+    divLang.classList.toggle("show");
+    console.log("ola");
+  });
+  submitButton.addEventListener("click",(e)=>{
+    e.preventDefault();
+    // you can handle front end validation here.
+    console.log("button clicked");
+    //uncomment form.submit() to continue regular behaviour
+    complaintForm.submit()
+  });
+ function showRestOfForm(){
+   console.log("ola");
+   restForm.classList.add("show"); 
+  }
+  imageField.addEventListener("change",()=>{
+    console.log("change");
+    showRestOfForm()
+    // you can add image recoginition calls here
+  });
+  /* 
+<!-- Speech recognition JS --> */
+
 var langs =
 [['Afrikaans',       ['af-ZA']],
  ['Bahasa Indonesia',['id-ID']],
@@ -309,7 +399,7 @@ var start_timestamp;
 if (!('webkitSpeechRecognition' in window)) {
   upgrade();
 } else {
-  start_button.style.display = 'inline-block';
+  //start_button.style.display = 'inline-block';
   var recognition = new webkitSpeechRecognition();
   recognition.continuous = true;
   recognition.interimResults = true;
@@ -317,7 +407,7 @@ if (!('webkitSpeechRecognition' in window)) {
   recognition.onstart = function() {
     recognizing = true;
     showInfo('info_speak_now');
-    start_img.src = 'mic-animate.gif';
+ //   start_img.src = 'mic-animate.gif';
   };
 
   recognition.onerror = function(event) {
@@ -346,7 +436,7 @@ if (!('webkitSpeechRecognition' in window)) {
     if (ignore_onend) {
       return;
     }
-    start_img.src = 'mic.gif';
+   // start_img.src = 'mic.gif';
     if (!final_transcript) {
       showInfo('info_start');
       return;
@@ -374,8 +464,18 @@ if (!('webkitSpeechRecognition' in window)) {
       }
     }
     final_transcript = capitalize(final_transcript);
-    final_span.innerHTML = linebreak(final_transcript);
-    interim_span.innerHTML = linebreak(interim_transcript);
+    if(map){
+      mapString=linebreak(final_transcript);
+      console.log(mapString);
+    }
+    else{
+      descriptionField.innerHTML = linebreak(final_transcript);
+      console.log('desc');
+    }
+    
+    /* interim_span.innerHTML = linebreak(interim_transcript); */
+    if(map){
+    }
     if (final_transcript || interim_transcript) {
       showButtons('inline-block');
     }
@@ -408,7 +508,7 @@ function createEmail() {
   window.location.href = 'mailto:?subject=' + subject + '&body=' + body;
 }
 
-function copyButton() {
+/* function copyButton() {
   if (recognizing) {
     recognizing = false;
     recognition.stop();
@@ -416,8 +516,8 @@ function copyButton() {
   copy_button.style.display = 'none';
   copy_info.style.display = 'inline-block';
   showInfo('');
-}
-
+} */
+/* 
 function emailButton() {
   if (recognizing) {
     create_email = true;
@@ -429,20 +529,22 @@ function emailButton() {
   email_button.style.display = 'none';
   email_info.style.display = 'inline-block';
   showInfo('');
-}
-
-function startButton(event) {
+} */
+function stopButton(event){
   if (recognizing) {
     recognition.stop();
     return;
   }
+}
+function startButton(event) {
+  
   final_transcript = '';
   recognition.lang = select_dialect.value;
   recognition.start();
   ignore_onend = false;
   final_span.innerHTML = '';
-  interim_span.innerHTML = '';
-  start_img.src = 'mic-slash.gif';
+  interim_span.innerHTML = '';/* 
+  start_img.src = 'mic-slash.gif'; */
   showInfo('info_allow');
   showButtons('none');
   start_timestamp = event.timeStamp;
@@ -467,15 +569,13 @@ function showButtons(style) {
     return;
   }
   current_style = style;
-  copy_button.style.display = style;
-  email_button.style.display = style;
-  copy_info.style.display = 'none';
-  email_info.style.display = 'none';
+ // copy_button.style.display = style;
+  //email_button.style.display = style;
+ // copy_info.style.display = 'none';
+//  email_info.style.display = 'none';
 }
 
-var lati = "{{lati}}";
-var longi = "{{long}}";
-var mymap = L.map('mapid').setView([lati, longi], 13); //initialize a map
+var mymap = L.map('mapid').setView([19.0492292, 72.8922557], 13); //initialize a map
 mymap.scrollWheelZoom.disable();
 // initializing the reverse geocoding i.e from longitude and latitude to the address and geo-search i.e from address to longitude and latitude
 var geocodeService = L.esri.Geocoding.geocodeService();
@@ -484,6 +584,45 @@ var searchControl = L.esri.Geocoding.geosearch().addTo(mymap);
 // create an empty layer group to store the results and add it to the map
 var results = L.layerGroup().addTo(mymap);
 
+function chooseAddr(lat1, lng1)
+{
+ marker.setLatLng([lat1, lng1]);
+ mymap.panTo(new L.LatLng(lat1, lng1));
+}
+
+function myFunction(arr)
+{
+ var out = "";
+ var i;
+
+ if(arr.length > 0)
+ {
+  chooseAddr(arr[0].lat,arr[0].lon);
+  document.getElementById('current').innerHTML = arr[0].display_name;
+ }
+ else
+ {
+  document.getElementById('current').innerHTML = "Sorry, no results...";
+ }
+
+}
+
+function addr_search(inp)
+{
+ 
+ var xmlhttp = new XMLHttpRequest();
+ var url = "https://nominatim.openstreetmap.org/search?format=json&limit=3&q=" + inp;
+ xmlhttp.onreadystatechange = function()
+ {
+   if (this.readyState == 4 && this.status == 200)
+   {
+    var myArr = JSON.parse(this.responseText);
+    myFunction(myArr);
+   }
+ };
+ xmlhttp.open("GET", url, true);
+ xmlhttp.send();
+}
 // listen for the results event and add every result to the map
 
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
@@ -531,46 +670,5 @@ return;
 document.getElementById("current").innerHTML = result.address.Match_addr;
 });
 });
-
-//function to show the address on the map
-function chooseAddr(lat1, lng1)
-{
-marker.setLatLng([lat1, lng1]);
-mymap.panTo(new L.LatLng(lat1, lng1));
-}
-
-//function to select the location from the text result
-function myFunction(arr)
-{
-if(arr.length > 0)
-{
-chooseAddr(arr[0].lat,arr[0].lon);
-document.getElementById('current').innerHTML = arr[0].display_name;
-}
-else
-{
-document.getElementById('current').innerHTML = "Sorry, no results...";
-}
-
-}
-
-//function to collect location address from the text input
-function addr_search(input)
-{
-var inp = input;
-var xmlhttp = new XMLHttpRequest();
-var url = "https://nominatim.openstreetmap.org/search?format=json&limit=3&q=" + inp;
-xmlhttp.onreadystatechange = function()
-{
- if (this.readyState == 4 && this.status == 200)
- {
-  var myArr = JSON.parse(this.responseText);
-  myFunction(myArr);
- }
-};
-xmlhttp.open("GET", url, true);
-xmlhttp.send();
-}
-
 
 </script>
