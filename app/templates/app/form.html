@@ -149,7 +149,8 @@
     </div>
     <div class="testbox">
       
-      <form action="/" method="post">
+      <form action="/" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
         <div class="w3-panel w3-blue w3-round-xlarge">
           <h1>Complaint Form </h1>
           <i id="settings-btn" class="fa fa-gear fa-2x "></i>
@@ -157,7 +158,7 @@
         <div class="item">
           <p>Upload Image</p>
           <div>
-            <input id="image-field" type="file" name="image" />
+            <input id="image-field" type="file" name="image"/>
         </div>
       </div>
       <h3 id="skip-button">Skip</h3>
@@ -300,9 +301,27 @@
    console.log("ola");
    restForm.classList.add("show"); 
   }
-  imageField.addEventListener("change",()=>{
-    console.log("change");
+  imageField.addEventListener("change",async (e)=>{
+    let formdata = new FormData();
+    // const csrftoken = Cookies.get('csrftoken');
+    let token = document.getElementsByName('csrfmiddlewaretoken').defaultValue;
+    console.log(token);
+
+    formdata.append('py-image', imageField.files[0]);
+    formdata.append('csrfmiddlewaretoken',token);
+
+    console.log(imageField.files[0]);
+    
+    const response = await fetch('/getissue', {
+      method:"POST",
+      credentials: 'same-origin',
+      body:formdata
+    });
+    const res = await response.json();
+    console.log(res);
     showRestOfForm()
+
+    
     // you can add image recoginition calls here
   });
   /* 
