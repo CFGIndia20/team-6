@@ -40,6 +40,6 @@ Future Ideas
 - Gamification by creating a leaderboard
 - Creating user badges to promote the platform
 - Rating the citizens to help the NGO detect genuine complaints
-- Identifying sucess stories
+- Identifying success stories
 - Ask users to give input in specific template
 
