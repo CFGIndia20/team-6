@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Complaint Form</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+      <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+    <script src="https://unpkg.com/esri-leaflet@2.4.1/dist/esri-leaflet.js"
+    integrity="sha512-xY2smLIHKirD03vHKDJ2u4pqeHA7OQZZ27EjtqmuhDguxiUvdsOuXMwkg16PQrm9cgTmXtoxA6kwr8KBy3cdcw=="
+    crossorigin=""></script>
+        <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.3.3/dist/esri-leaflet-geocoder.css"
+    integrity="sha512-IM3Hs+feyi40yZhDH6kV8vQMg4Fh20s9OzInIIAc4nx7aMYMfo+IenRUekoYsHZqGkREUgx0VvlEsgm7nCDW9g=="
+    crossorigin="">
+  <script src="https://unpkg.com/esri-leaflet-geocoder@2.3.3/dist/esri-leaflet-geocoder.js"
+    integrity="sha512-HrFUyCEtIpxZloTgEKKMq4RFYhxjJkCiF5sDxuAokklOeZ68U2NPfh4MFtyIVWlsKtVbK5GD2/JzFyAfvT5ejA=="
+    crossorigin=""></script>
+    <style>
+      #mapid { height: 500px; width: 1000px}
+      html, body {
+      min-height: 100%;
+      }
+      body, div, form, input, select, p { 
+      padding: 0;
+      margin: 0;
+      outline: none;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 14px;
+      color: #666;
+      line-height: 22px;
+      }
+      h1 {
+      margin: 15px 0;
+      font-weight: 400;
+      }
+      .testbox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: inherit;
+      padding: 3px;
+      }
+      form {
+      width: 80%;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 0 2px 5px #ccc; 
+      }
+      input, select, textarea {
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      }
+      input:hover, select:hover, textarea:hover {
+      outline: none;
+      border: 1px solid #095484;
+      }
+      input {
+      width: calc(100% - 10px);
+      padding: 5px;
+      
+      }
+      select {
+      width: 100%;
+      padding: 7px 0;
+      background: transparent;
+      }
+      textarea {
+      width: calc(100% - 6px);
+      }
+      .item {
+      position: relative;
+      margin: 10px 0;
+      }
+      input[type="date"]::-webkit-inner-spin-button {
+      display: none;
+      }
+      .item i, input[type="date"]::-webkit-calendar-picker-indicator {
+      position: absolute;
+      font-size: 20px;
+      color: #a9a9a9;
+      }
+      .item i {
+      right: 2%;
+      top: 30px;
+      z-index: 1;
+      }
+      [type="date"]::-webkit-calendar-picker-indicator {
+      right: 1%;
+      z-index: 2;
+      opacity: 0;
+      cursor: pointer;
+      }
+      .btn-block {
+      margin-top: 20px;
+      text-align: center;
+      }
+      button {
+      width: 150px;
+      padding: 10px;
+      border: none;
+      -webkit-border-radius: 5px; 
+      -moz-border-radius: 5px; 
+      border-radius: 5px; 
+      background-color: #095484;
+      font-size: 16px;
+      color: #fff;
+      cursor: pointer;
+      }
+      button:hover {
+      background-color: #0666a3;
+      }
+      #info {
+        align : center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="testbox">
+      <form action="/" method="post">
+        <div class="w3-panel w3-blue w3-round-xlarge">
+        <h1>Complaint Form</h1>
+        </div>
+        <div class="item">
+          <p>Your name</p>
+          <div>
+            <input type="text" name="name" placeholder="Enter your name" required/>
+          </div>
+        </div>
+        <div class="item">
+          <p>Your email</p>
+          <input type="email" name="name"placeholder="Enter your email" required/>
+        </div>
+        <div class="item">
+          <p>Date of complaint</p>
+          <input type="date" name="name" required/>
+          <i class="fas fa-calendar-alt"></i>
+        </div>
+        <div class="item">
+          <p>Choose department to send the complaint</p>
+          <select>
+            <option value="">*Please select*</option>
+            <option value="A">Potholes</option>
+            <option value="B">Street Light Electricity Issues</option>
+            <option value="C">Clearance of Garbage Dump or Black Spot</option>
+            <option value="D">Public Toilet not clean</option>
+          </select>
+        </div>
+        <div class="item">
+          <p>Note all relevant dates, places, events, etc. pertaining to the complaint</p>
+          <textarea rows="5" required></textarea>
+        </div>
+
+        <div class="item">
+            <p>Upload Image if any</p>
+            <div>
+              <input type="file" name="image" />
+          </div>
+        </div>
+
+        <div class="item">
+          <div id="mapid"></div>
+          <div id="current">Nothing yet</div>
+        </div>
+        <div class="btn-block">
+          <button type="submit" href="/">Send</button>
+        </div>
+      </form>
+    </div>
+
+
+    <!-- Speech recognition part -->
+    <div id="info" align=center>
+      <p id="info_start">Click on the microphone icon and begin speaking.</p>
+      <p id="info_speak_now">Speak now.</p>
+      <p id="info_no_speech">No speech was detected. You may need to adjust your
+        <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
+          microphone settings</a>.</p>
+      <p id="info_no_microphone" style="display:none">
+        No microphone was found. Ensure that a microphone is installed and that
+        <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
+        microphone settings</a> are configured correctly.</p>
+      <p id="info_allow">Click the "Allow" button above to enable your microphone.</p>
+      <p id="info_denied">Permission to use microphone was denied.</p>
+      <p id="info_blocked">Permission to use microphone is blocked. To change,
+        go to chrome://settings/contentExceptions#media-stream</p>
+      <p id="info_upgrade">Web Speech API is not supported by this browser.
+         Upgrade to <a href="//www.google.com/chrome">Chrome</a>
+         version 25 or later.</p>
+    </div>
+
+    <div class="right">
+      <button id="start_button" onclick="startButton(event)">
+        <img id="start_img" src="mic.gif" alt="Start"></button>
+    </div>
+    
+    <div id="results">
+      <span id="final_span" class="final"></span>
+      <span id="interim_span" class="interim"></span>
+      <p>
+    </div>
+
+    <div class="center">
+      <p>
+      <div id="div_language">
+        <select id="select_language" onchange="updateCountry()"></select>
+        &nbsp;&nbsp;
+        <select id="select_dialect"></select>
+      </div>
+    </div>
+    <!-- Speech recognition end -->
+
+
+  </body>
+</html>
+
+
+<!-- Speech recognition JS -->
+<script>
+var langs =
+[['Afrikaans',       ['af-ZA']],
+ ['Bahasa Indonesia',['id-ID']],
+ ['Bahasa Melayu',   ['ms-MY']],
+ ['Català',          ['ca-ES']],
+ ['Čeština',         ['cs-CZ']],
+ ['Deutsch',         ['de-DE']],
+ ['English',         ['en-AU', 'Australia'],
+                     ['en-CA', 'Canada'],
+                     ['en-IN', 'India'],
+                     ['en-NZ', 'New Zealand'],
+                     ['en-ZA', 'South Africa'],
+                     ['en-GB', 'United Kingdom'],
+                     ['en-US', 'United States']],
+ ['Español',         ['es-AR', 'Argentina'],
+                     ['es-BO', 'Bolivia'],
+                     ['es-CL', 'Chile'],
+                     ['es-CO', 'Colombia'],
+                     ['es-CR', 'Costa Rica'],
+                     ['es-EC', 'Ecuador'],
+                     ['es-SV', 'El Salvador'],
+                     ['es-ES', 'España'],
+                     ['es-US', 'Estados Unidos'],
+                     ['es-GT', 'Guatemala'],
+                     ['es-HN', 'Honduras'],
+                     ['es-MX', 'México'],
+                     ['es-NI', 'Nicaragua'],
+                     ['es-PA', 'Panamá'],
+                     ['es-PY', 'Paraguay'],
+                     ['es-PE', 'Perú'],
+                     ['es-PR', 'Puerto Rico'],
+                     ['es-DO', 'República Dominicana'],
+                     ['es-UY', 'Uruguay'],
+                     ['es-VE', 'Venezuela']],
+ ['Euskara',         ['eu-ES']],
+ ['Français',        ['fr-FR']],
+ ['Galego',          ['gl-ES']],
+ ['Hrvatski',        ['hr_HR']],
+ ['IsiZulu',         ['zu-ZA']],
+ ['Íslenska',        ['is-IS']],
+ ['Italiano',        ['it-IT', 'Italia'],
+                     ['it-CH', 'Svizzera']],
+ ['Magyar',          ['hu-HU']],
+ ['Nederlands',      ['nl-NL']],
+ ['Norsk bokmål',    ['nb-NO']],
+ ['Polski',          ['pl-PL']],
+ ['Português',       ['pt-BR', 'Brasil'],
+                     ['pt-PT', 'Portugal']],
+ ['Română',          ['ro-RO']],
+ ['Slovenčina',      ['sk-SK']],
+ ['Suomi',           ['fi-FI']],
+ ['Svenska',         ['sv-SE']],
+ ['Türkçe',          ['tr-TR']],
+ ['български',       ['bg-BG']],
+ ['Pусский',         ['ru-RU']],
+ ['Српски',          ['sr-RS']],
+ ['한국어',            ['ko-KR']],
+ ['中文',             ['cmn-Hans-CN', '普通话 (中国大陆)'],
+                     ['cmn-Hans-HK', '普通话 (香港)'],
+                     ['cmn-Hant-TW', '中文 (台灣)'],
+                     ['yue-Hant-HK', '粵語 (香港)']],
+ ['日本語',           ['ja-JP']],
+ ['Lingua latīna',   ['la']]];
+
+for (var i = 0; i < langs.length; i++) {
+  select_language.options[i] = new Option(langs[i][0], i);
+}
+select_language.selectedIndex = 6;
+updateCountry();
+select_dialect.selectedIndex = 6;
+showInfo('info_start');
+
+function updateCountry() {
+  for (var i = select_dialect.options.length - 1; i >= 0; i--) {
+    select_dialect.remove(i);
+  }
+  var list = langs[select_language.selectedIndex];
+  for (var i = 1; i < list.length; i++) {
+    select_dialect.options.add(new Option(list[i][1], list[i][0]));
+  }
+  select_dialect.style.visibility = list[1].length == 1 ? 'hidden' : 'visible';
+}
+
+var create_email = false;
+var final_transcript = '';
+var recognizing = false;
+var ignore_onend;
+var start_timestamp;
+if (!('webkitSpeechRecognition' in window)) {
+  upgrade();
+} else {
+  start_button.style.display = 'inline-block';
+  var recognition = new webkitSpeechRecognition();
+  recognition.continuous = true;
+  recognition.interimResults = true;
+
+  recognition.onstart = function() {
+    recognizing = true;
+    showInfo('info_speak_now');
+    start_img.src = 'mic-animate.gif';
+  };
+
+  recognition.onerror = function(event) {
+    if (event.error == 'no-speech') {
+      start_img.src = 'mic.gif';
+      showInfo('info_no_speech');
+      ignore_onend = true;
+    }
+    if (event.error == 'audio-capture') {
+      start_img.src = 'mic.gif';
+      showInfo('info_no_microphone');
+      ignore_onend = true;
+    }
+    if (event.error == 'not-allowed') {
+      if (event.timeStamp - start_timestamp < 100) {
+        showInfo('info_blocked');
+      } else {
+        showInfo('info_denied');
+      }
+      ignore_onend = true;
+    }
+  };
+
+  recognition.onend = function() {
+    recognizing = false;
+    if (ignore_onend) {
+      return;
+    }
+    start_img.src = 'mic.gif';
+    if (!final_transcript) {
+      showInfo('info_start');
+      return;
+    }
+    showInfo('');
+    if (window.getSelection) {
+      window.getSelection().removeAllRanges();
+      var range = document.createRange();
+      range.selectNode(document.getElementById('final_span'));
+      window.getSelection().addRange(range);
+    }
+    if (create_email) {
+      create_email = false;
+      createEmail();
+    }
+  };
+
+  recognition.onresult = function(event) {
+    var interim_transcript = '';
+    for (var i = event.resultIndex; i < event.results.length; ++i) {
+      if (event.results[i].isFinal) {
+        final_transcript += event.results[i][0].transcript;
+      } else {
+        interim_transcript += event.results[i][0].transcript;
+      }
+    }
+    final_transcript = capitalize(final_transcript);
+    final_span.innerHTML = linebreak(final_transcript);
+    interim_span.innerHTML = linebreak(interim_transcript);
+    if (final_transcript || interim_transcript) {
+      showButtons('inline-block');
+    }
+  };
+}
+
+function upgrade() {
+  start_button.style.visibility = 'hidden';
+  showInfo('info_upgrade');
+}
+
+var two_line = /\n\n/g;
+var one_line = /\n/g;
+function linebreak(s) {
+  return s.replace(two_line, '<p></p>').replace(one_line, '<br>');
+}
+
+var first_char = /\S/;
+function capitalize(s) {
+  return s.replace(first_char, function(m) { return m.toUpperCase(); });
+}
+
+function createEmail() {
+  var n = final_transcript.indexOf('\n');
+  if (n < 0 || n >= 80) {
+    n = 40 + final_transcript.substring(40).indexOf(' ');
+  }
+  var subject = encodeURI(final_transcript.substring(0, n));
+  var body = encodeURI(final_transcript.substring(n + 1));
+  window.location.href = 'mailto:?subject=' + subject + '&body=' + body;
+}
+
+function copyButton() {
+  if (recognizing) {
+    recognizing = false;
+    recognition.stop();
+  }
+  copy_button.style.display = 'none';
+  copy_info.style.display = 'inline-block';
+  showInfo('');
+}
+
+function emailButton() {
+  if (recognizing) {
+    create_email = true;
+    recognizing = false;
+    recognition.stop();
+  } else {
+    createEmail();
+  }
+  email_button.style.display = 'none';
+  email_info.style.display = 'inline-block';
+  showInfo('');
+}
+
+function startButton(event) {
+  if (recognizing) {
+    recognition.stop();
+    return;
+  }
+  final_transcript = '';
+  recognition.lang = select_dialect.value;
+  recognition.start();
+  ignore_onend = false;
+  final_span.innerHTML = '';
+  interim_span.innerHTML = '';
+  start_img.src = 'mic-slash.gif';
+  showInfo('info_allow');
+  showButtons('none');
+  start_timestamp = event.timeStamp;
+}
+
+function showInfo(s) {
+  if (s) {
+    for (var child = info.firstChild; child; child = child.nextSibling) {
+      if (child.style) {
+        child.style.display = child.id == s ? 'inline' : 'none';
+      }
+    }
+    info.style.visibility = 'visible';
+  } else {
+    info.style.visibility = 'hidden';
+  }
+}
+
+var current_style;
+function showButtons(style) {
+  if (style == current_style) {
+    return;
+  }
+  current_style = style;
+  copy_button.style.display = style;
+  email_button.style.display = style;
+  copy_info.style.display = 'none';
+  email_info.style.display = 'none';
+}
+
+var lati = "{{lati}}";
+var longi = "{{long}}";
+var mymap = L.map('mapid').setView([lati, longi], 13); //initialize a map
+mymap.scrollWheelZoom.disable();
+// initializing the reverse geocoding i.e from longitude and latitude to the address and geo-search i.e from address to longitude and latitude
+var geocodeService = L.esri.Geocoding.geocodeService();
+var searchControl = L.esri.Geocoding.geosearch().addTo(mymap);
+
+// create an empty layer group to store the results and add it to the map
+var results = L.layerGroup().addTo(mymap);
+
+// listen for the results event and add every result to the map
+
+L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+    maxZoom: 18,
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+        '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+        'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    id: 'mapbox/streets-v11',
+    tileSize: 512,
+    zoomOffset: -1
+}).addTo(mymap);
+
+// initializing the marker on the map
+var marker = new L.marker([19.0492292, 72.8922557],{
+draggable: true}).addTo(mymap);
+
+// searchbar on the map
+ searchControl.on("results", function (data) {
+    results.clearLayers();
+    for (var i = data.results.length - 1; i >= 0; i--) {
+      results.addLayer(marker.setLatLng(data.results[i].latlng));
+      geocodeService.reverse().latlng([data.results[i].latlng.lat,data.results[i].latlng.lng]).run(function (error, result) {
+      if (error) {
+      return;
+      }
+      document.getElementById("current").innerHTML = result.address.Match_addr;
+      });
+    }
+  });
+
+// function when the marker is moving that is updating marker's position
+marker.on("drag", function(e) {
+var mark = e.target;
+var position = mark.getLatLng();
+mymap.panTo(new L.LatLng(position.lat, position.lng));
+});
+
+//function when the marker is stopped from drag and the adress is fetched on its postion
+marker.on('dragend', function(event) {
+var latlng = event.target.getLatLng();
+geocodeService.reverse().latlng([latlng.lat,latlng.lng]).run(function (error, result) {
+if (error) {
+return;
+}
+document.getElementById("current").innerHTML = result.address.Match_addr;
+});
+});
+
+//function to show the address on the map
+function chooseAddr(lat1, lng1)
+{
+marker.setLatLng([lat1, lng1]);
+mymap.panTo(new L.LatLng(lat1, lng1));
+}
+
+//function to select the location from the text result
+function myFunction(arr)
+{
+if(arr.length > 0)
+{
+chooseAddr(arr[0].lat,arr[0].lon);
+document.getElementById('current').innerHTML = arr[0].display_name;
+}
+else
+{
+document.getElementById('current').innerHTML = "Sorry, no results...";
+}
+
+}
+
+//function to collect location address from the text input
+function addr_search(input)
+{
+var inp = input;
+var xmlhttp = new XMLHttpRequest();
+var url = "https://nominatim.openstreetmap.org/search?format=json&limit=3&q=" + inp;
+xmlhttp.onreadystatechange = function()
+{
+ if (this.readyState == 4 && this.status == 200)
+ {
+  var myArr = JSON.parse(this.responseText);
+  myFunction(myArr);
+ }
+};
+xmlhttp.open("GET", url, true);
+xmlhttp.send();
+}
+
+
+</script>
