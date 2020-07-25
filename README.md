@@ -7,7 +7,15 @@ The primary aim of our project was to make the complaint entry process for civil
 of the complaint, then they choose the location and write a brief description. They might upload an optional picture. Roughly 85% of all complaints have pictures. 
 
 ## Our Approach 
-So how do we make an already simple process easier, By pre-filling the form for users. We have used a few different approaches described below
+So how do we make an already simple process easier, By pre-filling the form for users. We have used a few different approaches described below. The basic user flow is as follows 
+
+The user can choose to upload a picture, the ML model predict a category. 
+If the picture has location metadata extract location from it
+This is given as a recommendation to the user. If wrong the user can choose the right one. 
+The user then enters the description of the complaint
+Similar category prediction happens here
+If not selected already the user can enter the category
+
 
 ### Features
 
@@ -33,4 +41,5 @@ Future Ideas
 - Creating user badges to promote the platform
 - Rating the citizens to help the NGO detect genuine complaints
 - Identifying sucess stories
+- Ask users to give input in specific template
 
