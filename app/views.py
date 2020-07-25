@@ -9,6 +9,9 @@ def trial(request):
 	extract_url.extract()
 	return render(request, 'app/form.html')
 
+def reviews(request):
+	return render(request, 'app/review.html')
+
 
 def get_issue(imagepath):
 	classes = demo_predict.extract(imagepath)[0]
