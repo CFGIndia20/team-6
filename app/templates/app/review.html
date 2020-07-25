@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Page</title>
+</head>
+<body>
+    <form action="/cgi-bin/review.py" method="get" enctype="multipart/form-data">
+        <label for="review">Enter your Review : </label><br>
+        <input type="text" id="review" name="review">
+        <button onclick="myFunction()">Submit Review</button>
+        <p id="para"></p>
+
+        </form>
+      
+      <script>
+          function myFunction(){
+              var getText=document.getElementById("review").value;
+              document.getElementById("para").innerHTML=getText;
+          }
+        </script>
+
+</body>
+</html>
