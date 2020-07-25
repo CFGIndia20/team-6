@@ -109,13 +109,12 @@
         <div class="item">
           <p>Your name</p>
           <div>
-            <input type="text" name="name" placeholder="First" />
-            <input type="text" name="name" placeholder="Last" />
+            <input type="text" name="name" placeholder="Enter your name" width="48"/>
           </div>
         </div>
         <div class="item">
           <p>Your email</p>
-          <input type="text" name="name"/>
+          <input type="email" name="name"placeholder="Enter your email"/>
         </div>
         <div class="item">
           <p>Date of complaint</p>
@@ -123,7 +122,7 @@
           <i class="fas fa-calendar-alt"></i>
         </div>
         <div class="item">
-          <p>Your department</p>
+          <p>Choose department to send the complaint</p>
           <select>
             <option value="">*Please select*</option>
             <option value="A">Potholes</option>
@@ -135,6 +134,13 @@
         <div class="item">
           <p>Note all relevant dates, places, events, etc. pertaining to the complaint</p>
           <textarea rows="5"></textarea>
+        </div>
+
+        <div class="item">
+            <p>Upload Image if any</p>
+            <div>
+              <input type="file" name="image" />
+          </div>
         </div>
       
         <div class="btn-block">
