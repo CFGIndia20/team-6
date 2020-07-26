@@ -86,6 +86,7 @@ We keep a track of the number of resolved requests for each user. Based on which
 We could keep a rating system where the rating of an individual is the weighted sum of the following attributes. Number of genuine complaints, percentage of resolved complaints, no of comments etc.
 
 
-
+## Project Structure
+Our project follows an MVC structure, which is modular with with modules for differeent functionalitites.
 
 
