@@ -57,3 +57,17 @@ Future Ideas
 - Identifying success stories
 - Ask users to give input in specific template
 
+### More detailed Explanation of features
+
+##### Extract location from google map URL
+Using a regex parser. Given a body of text get the URL. Using the URL get latitude and longitude and use it to initialize the map. The functions can be found in '/app/extract-url-from-para'
+
+##### Extract location from post
+Using an RNN ML model get the address features from text. found in '/app/extract-field-from-text'
+
+##### Extract category from input image 
+Using a CNN ML model we predict the category given the image. We have implemented it for 5 classes to demo. State-of-the-art models can predict upto 1000 classes very well, so the solution will be able to detect most of the 241 classes. found in '/app/get-category-from-image'
+
+##### Extract location from image metadata
+JPG images taken from a smartphone with GPS on have location metadata stored with the picture. If available we use this to predict location. 
+
