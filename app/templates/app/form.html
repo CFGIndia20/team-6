@@ -173,6 +173,7 @@
             <option value="B">Street Light Electricity Issues</option>
             <option value="C">Clearance of Garbage Dump or Black Spot</option>
             <option value="D">Public Toilet not clean</option>
+            <option value="E">Others</option>
           </select>
         </div>
         <div class="item">
@@ -336,7 +337,12 @@
       })
     });
     const res = await response.json();
-    console.log('\n\n\n\nrnn'+res);
+    console.log('\n\n\n\nrnn'+res.prediction);
+    // document.getElementById("category-field").value = res.prediction ;
+    const dict = {'Mobility - Roads, Footpaths and Infrastructure' : 'Potholes','Garbage and Unsanitary Practices' : 'Clearance of Garbage Dump or Black Spot','Public Toilets' : 'Public Toilet not clean' , 'Streetlights' : 'Street Light Electricity Issues'}
+const textToFind = dict['Garbage and Unsanitary Practices'];
+const dd = document.getElementById ('category-field');
+dd.selectedIndex = [...dd.options].findIndex (option => option.text === textToFind);
   });
   /* 
 <!-- Speech recognition JS --> */

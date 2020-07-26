@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from app.templates import extract_url
-from app.get_category_from_image import demo_predict
+from app.templates import demo_predict
 from app.templates import prediction
 import json
-# p = os.getcwd() + '\\get_category_from_image'
-# sys.path.insert(0, p)
+import os
+import sys
+p = os.getcwd() + '\\get_category_from_image'
+sys.path.insert(0, p)
 
 def trial(request):
 	if request.method == 'POST':
@@ -35,7 +37,7 @@ def get_issue(request):
 		return JsonResponse({
 		 "prediction": d[ind]
 		})
-{"text":"jvdkbjkrbge"}
+# {"text":"jvdkbjkrbge"}
 def getrnn(request):
 	if request.method == 'POST':
 		with open("rnn.txt", "wb") as f:
