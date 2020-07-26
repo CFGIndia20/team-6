@@ -88,9 +88,9 @@ We could keep a rating system where the rating of an individual is the weighted 
 
 ## Project Structure
 Our project follows an MVC structure, which is modular with with modules for differeent functionalitites.
-All individual features can be found in the '/app' folder
+All individual features can be found in the `/app` folder.
 
 To run the project install django, keras, and tensorflow
 
-move to the main directory and run 'python manage.py runserver'. This will start the server 
+move to the main directory and run `python manage.py runserver`. This will start the server 
 
