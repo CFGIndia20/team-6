@@ -9,12 +9,26 @@ of the complaint, then they choose the location and write a brief description. T
 ## Our Approach 
 So how do we make an already simple process easier, By pre-filling the form for users. We have used a few different approaches described below. The basic user flow is as follows 
 
-The user can choose to upload a picture, the ML model predict a category. 
-If the picture has location metadata extract location from it
-This is given as a recommendation to the user. If wrong the user can choose the right one. 
-The user then enters the description of the complaint
-Similar category prediction happens here
-If not selected already the user can enter the category
+Improvement to current process
+1. All inputs can be given through voice
+1. The user can choose to upload a picture, the ML model predicts a category. 
+   1. If the picture has location metadata extract location from it
+   1. This is given as a recommendation to the user. If wrong the user can choose the right one. 
+1. The user then enters the description of the complaint
+   1. Similar category prediction happens here if not done already
+1. User selects category if not done
+1. If location is extracted from photo, initialize the map pin on that location
+1. User enters location
+1. User verifies all fields and registers complaint
+
+Extracting complaints from a Social media post
+We extract as much information from a social media post(Any platform) and then create half filled form with public urls
+We add these public url as a comment on the post of the user. The user can fill these URLs and add a complaint
+data we extract
+- User details from the username
+- Image from post and use it predict category and location
+- Address from the post (The location field starts from this position)
+- Description from the post
 
 
 ### Features
