@@ -23,6 +23,9 @@ urlpatterns = [
     path('review/',views.reviews),
     path('getissue',views.get_issue),
     path('form/',views.form),
+    path('getrnn',views.getrnn),
+
+
 
 
 

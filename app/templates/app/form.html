@@ -177,7 +177,7 @@
         </div>
         <div class="item">
           <p>All the relevant information (dates, places, events, etc.) <i id="desc" class="speak fa fa-microphone fa-1x"></i></p>
-          <textarea  id="description-field" rows="5" required></textarea>
+          <textarea  id="description-field" rows="5" required id = 'rnn-text'></textarea>
         
            
         </div>
@@ -308,7 +308,7 @@
     console.log(token);
 
     formdata.append('py-image', imageField.files[0]);
-    formdata.append('csrfmiddlewaretoken',token);
+    // formdata.append('csrfmiddlewaretoken',token);
 
     console.log(imageField.files[0]);
     
@@ -323,6 +323,20 @@
 
     
     // you can add image recoginition calls here
+  });
+
+  descriptionField.addEventListener("change",async (e)=>{
+    
+      var text = descriptionField.value;
+      const response = await fetch('/getrnn', {
+      method:"POST",
+      credentials: 'same-origin',
+      body: JSON.stringify({
+        "text": text
+      })
+    });
+    const res = await response.json();
+    console.log('\n\n\n\nrnn'+res);
   });
   /* 
 <!-- Speech recognition JS --> */

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from app.templates import extract_url
 from app.get_category_from_image import demo_predict
+from app.templates import prediction
 import json
 # p = os.getcwd() + '\\get_category_from_image'
 # sys.path.insert(0, p)
@@ -25,6 +26,8 @@ def get_issue(request):
 	if request.method == 'POST':
 		print('\n\n\n', request)
 		imagepath = "".join(map(chr,request.body ))
+		with open("img.png", "wb") as f:
+			f.write(request.body)
 		classes = demo_predict.extract(imagepath)[0]
 		print('\n\n\n', classes)
 		d = {0:"garbage", 1:"potholes", 2:"stray dogs", 3:"street lights", 4:"traffic jam"}
@@ -32,3 +35,22 @@ def get_issue(request):
 		return JsonResponse({
 		 "prediction": d[ind]
 		})
+{"text":"jvdkbjkrbge"}
+def getrnn(request):
+	if request.method == 'POST':
+		with open("rnn.txt", "wb") as f:
+			f.write(request.body)
+	f = open("rnn.txt", "r")
+	text = f.read()
+	text = text[1:]
+	text = text[:-2]
+	text = text.split(":")[1]
+	text = text[1:]
+	p = prediction.main_predict(text)
+	print('pred\n\n', p)
+	return JsonResponse({
+		"prediction": p
+	})
+
+	
+		
