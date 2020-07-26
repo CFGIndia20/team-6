@@ -18,224 +18,280 @@
     integrity="sha512-HrFUyCEtIpxZloTgEKKMq4RFYhxjJkCiF5sDxuAokklOeZ68U2NPfh4MFtyIVWlsKtVbK5GD2/JzFyAfvT5ejA=="
     crossorigin=""></script>
     <style>
-       .rest-of-form{
-        visibility: hidden;
-      } 
-      .rest-of-form.show{
-        visibility: visible;
-      } 
-      
-      #mapid { height: 40vh; width: 100%}
-      html, body {
-      min-height: 100%;
-      }
-      body, div, form, input, select, p { 
-      padding: 0;
-      margin: 0;
-      outline: none;
-      font-family: Roboto, Arial, sans-serif;
-      font-size: 14px;
-      color: #666;
-      line-height: 22px;
-      }
-      h1 {
-      margin: 15px 0;
-      font-weight: 400;
-      }
-      body{
-        position: relative;
-      }
-      .testbox {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: inherit;
-      padding: 3px;
-      }
-      form {
-      width: 80%;
-      padding: 20px;
-      background: #fff;
-      box-shadow: 0 2px 5px #ccc; 
-      }
-      input, select, textarea {
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 3px;
-      }
-      input:hover, select:hover, textarea:hover {
-      outline: none;
-      border: 1px solid #095484;
-      }
-      input {
-      width: calc(100% - 10px);
-      padding: 5px;
-      
-      }
-      select {
-      width: 100%;
-      padding: 7px 0;
-      background: transparent;
-      }
-      textarea {
-      width: calc(100% - 6px);
-      }
-      .item {
-      margin: 10px 0;
-      }
-      .item .speak{
-        background-color: #095484;
-        color: white;
-        border-radius: 50%;
-        padding: 12px;
-        margin: 10px;
-      }
-      input[type="date"]::-webkit-inner-spin-button {
-      display: none;
-      }
-      
-      [type="date"]::-webkit-calendar-picker-indicator {
-      right: 1%;
-      z-index: 2;
-      opacity: 0;
-      cursor: pointer;
-      }
-      .btn-block {
-      margin-top: 20px;
-      text-align: center;
-      }
-      button {
-      width: 150px;
-      padding: 10px;
-      border: none;
-      -webkit-border-radius: 5px; 
-      -moz-border-radius: 5px; 
-      border-radius: 5px; 
-      background-color: #095484;
-      font-size: 16px;
-      color: #fff;
-      cursor: pointer;
-      }
-      button:hover {
-      background-color: #0666a3;
-      }
-      #info {
-        align : center;
-      }
-      #skip-button{
-        cursor: pointer;
-      }
-      #div_language{
-        display: none;
-      }
-      #div_language.show{
-        position: absolute;
-        right: 30px;
-        top: 30px;
-        display: flex;
-        flex-direction: column;
-        background-color: white;
-        padding: 20px 10px;
-        border-radius: 10px;
-        border: 1px solid black;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="div_language">
-      <select id="select_language" onchange="updateCountry()"></select>
-      &nbsp;&nbsp;
-      <select id="select_dialect"></select>
-    </div>
-    <div class="testbox">
-      
-      <form action="/" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="w3-panel w3-blue w3-round-xlarge">
-          <h1>Complaint Form </h1>
-          <i id="settings-btn" class="fa fa-gear fa-2x "></i>
-          </div>
-        <div class="item">
-          <p>Upload Image</p>
-          <div>
-            <input id="image-field" type="file" name="image"/>
-        </div>
-      </div>
-      <h3 id="skip-button">Skip</h3>
-      <div class="rest-of-form">
-        
-        
-        <div class="item">
-          <p>Choose department to send the complaint</p>
-          <select id="category-field">
-            <option value="">*Please select*</option>
-            <option value="A">Potholes</option>
-            <option value="B">Street Light Electricity Issues</option>
-            <option value="C">Clearance of Garbage Dump or Black Spot</option>
-            <option value="D">Public Toilet not clean</option>
-          </select>
-        </div>
-        <div class="item">
-          <p>All the relevant information (dates, places, events, etc.) <i id="desc" class="speak fa fa-microphone fa-1x"></i></p>
-          <textarea  id="description-field" rows="5" required id = 'rnn-text'></textarea>
-        
-           
-        </div>
+      .rest-of-form{
+       visibility: hidden;
+     } 
+     .rest-of-form.show{
+       visibility: visible;
+     }
 
+     #category-field *
+{
+border-radius:15px;
+background-color:#ffffff;
+
+       font-family: Roboto, Arial, sans-serif;font-size: 16px;color: #000000
+}
+
+     .tab {
+       width: 130px;
+     overflow: hidden;
+     border: 1px solid #000000;
+     background-color: #FFC500;
+       margin-bottom: 10px;
+     }
+
+      .tab-title {
+       width: 500px;
+     overflow: hidden;
+     border: 1px solid #000000;
+     background-color: #FFC500;
+       margin-bottom: 10px;
+     }
+
+       .tab-title-1{
+       width: 550px;
+     overflow: hidden;
+     border: 1px solid #000000;
+     background-color: #FFC500;
+       margin-bottom: 10px;
+     }
+
+        .tab-title-2{
+       width: 200px;
+     overflow: hidden;
+     border: 1px solid #000000;
+     background-color: #FFC500;
+       margin-bottom: 10px;
+     }
+
+     #mapid { height: 40vh; width: 100%}
+     html, body {
+     min-height: 100%;
+     }
+     body, div, form, input, select, p { 
+     padding: 0;
+     margin: 0;
+     outline: none;
+     font-family: Roboto, Arial, sans-serif;
+     font-size: 14px;
+     color: #666;
+     line-height: 22px;
+     }
+     h1 {
+     margin: 15px 0;
+     font-weight: 400;
+     }
+     body{
+       position: relative;
+     }
+     .testbox {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     height: inherit;
+     padding: 3px;
+     }
+     form {
+     width: 80%;
+     padding: 20px;
+     background: #FFC500;
+     box-shadow: 0 2px 5px #ccc; 
+     }
+     input, select, textarea {
+     margin-bottom: 10px;
+     border: 1px solid #ccc;
+     border-radius: 3px;
+     }
+     input:hover, select:hover, textarea:hover {
+     outline: none;
+     border: 1px solid #095484;
+     }
+     input {
+     width: calc(100% - 10px);
+     padding: 5px;
+     
+     }
+     select {
+     width: 100%;
+     padding: 7px 0;
+     background: transparent;
+     }
+     textarea {
+     width: calc(100% - 6px);
+     }
+     .item {
+     margin: 10px 0;
+     }
+     .item .speak{
+       background-color: #095484;
+       color: white;
+       border-radius: 50%;
+       padding: 12px;
+       margin: 10px;
+     }
+     input[type="date"]::-webkit-inner-spin-button {
+     display: none;
+     }
+     
+     [type="date"]::-webkit-calendar-picker-indicator {
+     right: 1%;
+     z-index: 2;
+     opacity: 0;
+     cursor: pointer;
+     }
+     .btn-block {
+     margin-top: 20px;
+     text-align: center;
+     }
+     button {
+     width: 150px;
+     padding: 10px;
+     border: none;
+     -webkit-border-radius: 5px; 
+     -moz-border-radius: 5px; 
+     border-radius: 5px; 
+     background-color: #095484;
+     font-size: 16px;
+     color: #fff;
+     cursor: pointer;
+     }
+     button:hover {
+     background-color: #0666a3;
+     }
+     #info {
+       align : center;
+     }
+     #skip-button{
+       width: 55px;
+     overflow: hidden;
+     border: 2px solid #000000;
+       border-radius: 12px;
+     background-color: #f1f1f1;
+       margin-bottom: 10px;
+       cursor: pointer;
+     }
+     #div_language{
+       display: none;
+     }
+     #div_language.show{
+       position: absolute;
+       right: 30px;
+       top: 30px;
+       display: flex;
+       flex-direction: column;
+       background-color: white;
+       padding: 20px 10px;
+       border-radius: 10px;
+       border: 1px solid black;
+     }
+   </style>
+ </head>
+ <body style="background-color: #373737">
+   <div id="div_language">
+     <select id="select_language" onchange="updateCountry()"></select>
+     &nbsp;&nbsp;
+     <select id="select_dialect"></select>
+   </div>
+   <div class="testbox">
+     
+     <form action="/" method="post" enctype="multipart/form-data">
+       {% csrf_token %}
+       <div class="w3-panel w3-blue w3-round-xlarge">
+         <h1 style="text-align: center;font-family: Roboto, Arial, sans-serif;"><b>COMPLAINT FORM</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i id="settings-btn" class="fa fa-gear fa-2x" style="font-size: 25px"></i> </h1>
+         </div>
+       <div class="item">
+         <div class="tab">
+           <p style="font-family: Roboto, Arial, sans-serif;font-size: 20px;color: #000000;text-align: center">Upload Image</p>
+         </div>
+
+         <div>
+           <input id="image-field" type="file" name="image" style="color: black;background-color: white"/>
+       </div>
+     </div>
+       <div id="skip-button">
+         <h3 style="font-family: Roboto, Arial, sans-serif;font-size: 20px;color: #000000;text-align: center">Skip</h3>
+       </div>
+     <div class="rest-of-form">
        
+       
+       <div class="item">
+         <div class="tab-title">
+           <p style="font-family: Roboto, Arial, sans-serif;font-size: 20px;color: #000000;text-align: center">Choose department to send the complaint</p>
+         </div>
+         <div>
+         <select id="category-field" style="background-color: white;color: black;text-align: center;font-family: Roboto, Arial, sans-serif;font-size: 16px;" name="category-field">
+           <option value="">Please select</option>
+           <option value="A">Potholes</option>
+           <option value="B">Street Light Electricity Issues</option>
+           <option value="C">Clearance of Garbage Dump or Black Spot</option>
+           <option value="D">Public Toilet not clean</option>
+         </select>
+           </div>
+       </div>
+       <div class="item">
+         <div class="tab-title-1">
+            <p style="font-family: Roboto, Arial, sans-serif;text-align: center;font-size: 20px;color: #000000;">All the relevant information (dates, places, events, etc.) <i id="desc" class="speak fa fa-microphone fa-1x" style="font-size: 8px"></i></p>
+         </div>
+         <textarea  id="description-field" rows="5" required></textarea>
 
-        <div class="item">
-          <p>Enter Location <i id="loc" class="speak fa fa-microphone fa-1x"></i></p>
-          <div id="mapid"></div>
-          <div id="current">Nothing yet</div>
-        </div>
-        <div id="results">
-          <span id="final_span" class="final"></span>
-          <span id="interim_span" class="interim"></span>
-          <p>
-        </div>
-        <div class="btn-block">
-          <button id="form-submit" type="submit" href="/">Send</button>
-        </div>
-      </div>
-      </form>
-    </div>
+       </div>
 
-
-    <!-- Speech recognition part -->
-    <div id="info">
-      <!-- <p id="info_start">Click on the microphone icon and begin speaking.</p>
-      <p id="info_speak_now">Speak now.</p> -->
-      <p id="info_no_speech">No speech was detected. You may need to adjust your
-        <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
-          microphone settings</a>.</p>
-      <p id="info_no_microphone" style="display:none">
-        No microphone was found. Ensure that a microphone is installed and that
-        <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
-        microphone settings</a> are configured correctly.</p>
-      <p id="info_allow">Click the "Allow" button above to enable your microphone.</p>
-      <p id="info_denied">Permission to use microphone was denied.</p>
-      <p id="info_blocked">Permission to use microphone is blocked. To change,
-        go to chrome://settings/contentExceptions#media-stream</p>
-      <p id="info_upgrade">Web Speech API is not supported by this browser.
-         Upgrade to <a href="//www.google.com/chrome">Chrome</a>
-         version 25 or later.</p>
-    </div>
-
-    
-     
-    
-    
-    
-
-     
       
-    <!-- Speech recognition end -->
+
+       <div class="item">
+         <div class="tab-title-2">
+            <p style="font-family: Roboto, Arial, sans-serif;font-size: 20px;color: #000000;text-align: center">Enter Location <i id="loc" class="speak fa fa-microphone fa-1x" style="font-size: 8px"></i></p>
+         </div>
+         <div id="mapid"></div>
+         <div id="current" style="margin-top:10px;font-family: Roboto, Arial, sans-serif;font-size: 20px;color: #000000;">Current Location</div>
+       </div>
+       <div id="results">
+         <span id="final_span" class="final"></span>
+         <span id="interim_span" class="interim"></span>
+         <p>
+       </div>
+       <div class="btn-block">
+         <button id="form-submit" type="submit" href="/">Send</button>
+       </div>
+     </div>
+     </form>
+   </div>
 
 
-  </body>
+   <!-- Speech recognition part -->
+   <div id="info">
+     <!-- <p id="info_start">Click on the microphone icon and begin speaking.</p>
+     <p id="info_speak_now">Speak now.</p> -->
+     <p id="info_no_speech">No speech was detected. You may need to adjust your
+       <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
+         microphone settings</a>.</p>
+     <p id="info_no_microphone" style="display:none">
+       No microphone was found. Ensure that a microphone is installed and that
+       <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
+       microphone settings</a> are configured correctly.</p>
+     <p id="info_allow">Click the "Allow" button above to enable your microphone.</p>
+     <p id="info_denied">Permission to use microphone was denied.</p>
+     <p id="info_blocked">Permission to use microphone is blocked. To change,
+       go to chrome://settings/contentExceptions#media-stream</p>
+     <p id="info_upgrade">Web Speech API is not supported by this browser.
+        Upgrade to <a href="//www.google.com/chrome">Chrome</a>
+        version 25 or later.</p>
+   </div>
+
+   
+    
+   
+   
+   
+
+    
+     
+   <!-- Speech recognition end -->
+
+
+ </body>
 </html>
-
 <script>
   var map = false;
   var mapString = "";

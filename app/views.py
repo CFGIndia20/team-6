@@ -35,7 +35,6 @@ def get_issue(request):
 		return JsonResponse({
 		 "prediction": d[ind]
 		})
-{"text":"jvdkbjkrbge"}
 def getrnn(request):
 	if request.method == 'POST':
 		with open("rnn.txt", "wb") as f:
