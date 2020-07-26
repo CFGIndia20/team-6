@@ -54,8 +54,6 @@ Future Ideas
 - Gamification by creating a leaderboard
 - Creating user badges to promote the platform
 - Rating the citizens to help the NGO detect genuine complaints
-- Identifying success stories
-- Ask users to give input in specific template
 
 ### More detailed Explanation of features
 
@@ -68,6 +66,26 @@ Using an RNN ML model get the address features from text. found in '/app/extract
 ##### Extract category from input image 
 Using a CNN ML model we predict the category given the image. We have implemented it for 5 classes to demo. State-of-the-art models can predict upto 1000 classes very well, so the solution will be able to detect most of the 241 classes. found in '/app/get-category-from-image'
 
+##### Extract category from description
+Using a LSTM ML model we predict the category given the image. We have implemented it for 20 classes to demo.
+
 ##### Extract location from image metadata
 JPG images taken from a smartphone with GPS on have location metadata stored with the picture. If available we use this to predict location. 
+
+#### voice to text 
+All text input can be provided through voice input. 
+
+#### Sentiment analysis
+Given feedback text a NLP model predicts whether the review is positive or negative. If it is negative we ask for extra details. found in '/app/sentiment-analysis'
+
+### Description of Future features
+#### Gamification by using a leaderboard
+We keep a track of the number of resolved requests for each user. Based on which we create two leaderboards. One for the current month and the other an all-time leaderboard
+
+#### Rating the citizens 
+We could keep a rating system where the rating of an individual is the weighted sum of the following attributes. Number of genuine complaints, percentage of resolved complaints, no of comments etc.
+
+
+
+
 
