@@ -18,20 +18,170 @@
     integrity="sha512-HrFUyCEtIpxZloTgEKKMq4RFYhxjJkCiF5sDxuAokklOeZ68U2NPfh4MFtyIVWlsKtVbK5GD2/JzFyAfvT5ejA=="
     crossorigin=""></script>
     <style>
-      .rest-of-form{
-       visibility: hidden;
-     } 
-     .rest-of-form.show{
-       visibility: visible;
-     }
-
-     #category-field *
-{
-border-radius:15px;
-background-color:#ffffff;
-
-       font-family: Roboto, Arial, sans-serif;font-size: 16px;color: #000000
-}
+       .rest-of-form{
+        visibility: hidden;
+      } 
+      .rest-of-form.show{
+        visibility: visible;
+      } 
+      
+      #mapid { height: 40vh; width: 100%}
+      html, body {
+      min-height: 100%;
+      }
+      body, div, form, input, select, p { 
+      padding: 0;
+      margin: 0;
+      outline: none;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 14px;
+      color: #666;
+      line-height: 22px;
+      }
+      h1 {
+      margin: 15px 0;
+      font-weight: 400;
+      }
+      body{
+        position: relative;
+      }
+      .testbox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: inherit;
+      padding: 3px;
+      }
+      form {
+      width: 80%;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 0 2px 5px #ccc; 
+      }
+      input, select, textarea {
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      }
+      input:hover, select:hover, textarea:hover {
+      outline: none;
+      border: 1px solid #095484;
+      }
+      input {
+      width: calc(100% - 10px);
+      padding: 5px;
+      
+      }
+      select {
+      width: 100%;
+      padding: 7px 0;
+      background: transparent;
+      }
+      textarea {
+      width: calc(100% - 6px);
+      }
+      .item {
+      margin: 10px 0;
+      }
+      .item .speak{
+        background-color: #095484;
+        color: white;
+        border-radius: 50%;
+        padding: 12px;
+        margin: 10px;
+      }
+      input[type="date"]::-webkit-inner-spin-button {
+      display: none;
+      }
+      
+      [type="date"]::-webkit-calendar-picker-indicator {
+      right: 1%;
+      z-index: 2;
+      opacity: 0;
+      cursor: pointer;
+      }
+      .btn-block {
+      margin-top: 20px;
+      text-align: center;
+      }
+      button {
+      width: 150px;
+      padding: 10px;
+      border: none;
+      -webkit-border-radius: 5px; 
+      -moz-border-radius: 5px; 
+      border-radius: 5px; 
+      background-color: #095484;
+      font-size: 16px;
+      color: #fff;
+      cursor: pointer;
+      }
+      button:hover {
+      background-color: #0666a3;
+      }
+      #info {
+        align : center;
+      }
+      #skip-button{
+        cursor: pointer;
+      }
+      #div_language{
+        display: none;
+      }
+      #div_language.show{
+        position: absolute;
+        right: 30px;
+        top: 30px;
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        padding: 20px 10px;
+        border-radius: 10px;
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="div_language">
+      <select id="select_language" onchange="updateCountry()"></select>
+      &nbsp;&nbsp;
+      <select id="select_dialect"></select>
+    </div>
+    <div class="testbox">
+      
+      <form action="/" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="w3-panel w3-blue w3-round-xlarge">
+          <h1>Complaint Form </h1>
+          <i id="settings-btn" class="fa fa-gear fa-2x "></i>
+          </div>
+        <div class="item">
+          <p>Upload Image</p>
+          <div>
+            <input id="image-field" type="file" name="image"/>
+        </div>
+      </div>
+      <h3 id="skip-button">Skip</h3>
+      <div class="rest-of-form">
+        
+        
+        <div class="item">
+          <p>Choose department to send the complaint</p>
+          <select id="category-field">
+            <option value="">*Please select*</option>
+            <option value="A">Potholes</option>
+            <option value="B">Street Light Electricity Issues</option>
+            <option value="C">Clearance of Garbage Dump or Black Spot</option>
+            <option value="D">Public Toilet not clean</option>
+            <option value="E">Others</option>
+          </select>
+        </div>
+        <div class="item">
+          <p>All the relevant information (dates, places, events, etc.) <i id="desc" class="speak fa fa-microphone fa-1x"></i></p>
+          <textarea  id="description-field" rows="5" required id = 'rnn-text'></textarea>
+        
+           
+        </div>
 
      .tab {
        width: 130px;
@@ -392,7 +542,12 @@ background-color:#ffffff;
       })
     });
     const res = await response.json();
-    console.log('\n\n\n\nrnn'+res);
+    console.log('\n\n\n\nrnn'+res.prediction);
+    // document.getElementById("category-field").value = res.prediction ;
+    const dict = {'Mobility - Roads, Footpaths and Infrastructure' : 'Potholes','Garbage and Unsanitary Practices' : 'Clearance of Garbage Dump or Black Spot','Public Toilets' : 'Public Toilet not clean' , 'Streetlights' : 'Street Light Electricity Issues'}
+const textToFind = dict['Garbage and Unsanitary Practices'];
+const dd = document.getElementById ('category-field');
+dd.selectedIndex = [...dd.options].findIndex (option => option.text === textToFind);
   });
   /* 
 <!-- Speech recognition JS --> */

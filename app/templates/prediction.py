@@ -12,7 +12,7 @@ from textblob import Word
 # nltk.download("wordnet")
 
 import pickle
-file_handle = open("T:\\cfg\\github\\team-6\\app\\templates\\tokenizer" , "rb")
+file_handle = open("C:\\Users\\Paresh shah\\Desktop\\team-6\\app\\templates\\tokenizer" , "rb")
 
 tokenizer = pickle.load(file_handle)
 
@@ -47,7 +47,7 @@ def preprocess(text):
 	df = df.loc[0].apply(lambda x: ' '.join([i.lower() for i in x.split()]))
 	df = df.str.replace(r'[^\w\s]',"")
 
-	dico = get_standard_dictionary("emnlp_dict.txt")
+	dico = get_standard_dictionary("C:\\Users\\Paresh shah\\Desktop\\team-6\\app\\templates\\emnlp_dict.txt")
 	
 	df = df.apply(txt_std)
 	df = df.str.replace(r"xx+\s","")
@@ -73,7 +73,7 @@ def get_prediction(model , text):
 	print("PREDICTION")
 	print(class_dict[pred_class])
 
-
+	return class_dict[pred_class]
 	# print(prediction)
 
 
@@ -83,9 +83,12 @@ def load_lstm_model(path):
 
 
 def main_predict(text):
-	model_path = "T:\\cfg\\github\\team-6\\app\\templates\\model.h5"
+	model_path = "C:\\Users\\Paresh shah\\Desktop\\team-6\\app\\templates\\model.h5"
 	model = load_lstm_model(model_path)
-	return get_prediction(model, text)
+	text =  get_prediction(model, text)
+	print("Prediction   " , text)
+	return text
+
 
 if __name__ == "__main__":
 	model_path = "model.h5"
