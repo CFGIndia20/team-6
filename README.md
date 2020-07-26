@@ -78,6 +78,9 @@ All text input can be provided through voice input.
 #### Sentiment analysis
 Given feedback text a NLP model predicts whether the review is positive or negative. If it is negative we ask for extra details. found in '/app/sentiment-analysis'
 
+### Heat Map
+This shows us the heat map which will help us identify the category of complaint that is filed the most.
+
 ### Description of Future features
 #### Gamification by using a leaderboard
 We keep a track of the number of resolved requests for each user. Based on which we create two leaderboards. One for the current month and the other an all-time leaderboard
