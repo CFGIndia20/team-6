@@ -1,4 +1,4 @@
-# Awaaz
+# Team 6 Awaaz
 
 Project for the NGO Jaanagraha by team 6, for the CODE FOR GOOD Hackathon.
 
